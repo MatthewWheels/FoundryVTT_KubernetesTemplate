@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foundry-ingress
+  namespace: foundry-vtt
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: 256m
+    nginx.org/client-max-body-size: 256m
+    nginx.ingress.kubernetes.io/proxy-body-size: 256m
+spec:
+  rules:
+  - host: "<host name here>"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: fvtt-svc
+            port:
+              number: 80
